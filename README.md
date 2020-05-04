@@ -18,7 +18,11 @@ Pour lancer correctement le programme, vous devez préalablement télécharger u
 
 Il suffit ensuite de dézipper le dossier et de préciser son url dans le fichier config.json du projet.
 
+Si utilisation du modèle sur un ordinateur portable, nous vous conseillons de télécharger les modèles LResNet50E-IR ou  LResNet34E-IR. Avec une meilleure configuration matérielle, ne pas hésiter à télécharger le modèle LResNet100E-IR pour de meilleures performances.
+
+### Setup du fichier config
+La configuration du projet s'effectue dans le fichier config.json. Avant lancement du programme, il est conseillé de vérifier les informations contenues dans ce fichier.
 
 ### Lancement du programme
-Le programme se lance via la commande : `python main_function.py`
+Dans le répertoire racine, veuillez utiliser la commande suivante : `python main_function.py -c config.json` pour lancer le programme.
 
