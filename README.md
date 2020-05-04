@@ -9,7 +9,7 @@
 * NVIDIA CuDNN download link : https://developer.nvidia.com/rdp/cudnn-archive
 * Tutoriel d'installation : https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html
 
-2. Télécharger et installer Python 3.6
+2. Télécharger et installer [Python 3.6](https://www.python.org/downloads/release/python-368/)
 
 3. Installer les dépendances du projet via la commande : `pip install -r requirements.txt`
 
