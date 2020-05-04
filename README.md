@@ -24,5 +24,5 @@ Si utilisation du modèle sur un ordinateur portable, nous vous conseillons de t
 La configuration du projet s'effectue dans le fichier config.json. Avant lancement du programme, il est conseillé de vérifier les informations contenues dans ce fichier.
 
 ### Lancement du programme
-Dans le répertoire racine, veuillez utiliser la commande suivante : `python main_function.py -c config.json` pour lancer le programme.
+Dans le répertoire racine, utiliser la commande suivante `python main_function.py -c config.json` pour lancer le programme.
 
