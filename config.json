@@ -1,0 +1,18 @@
+{   
+    "train_recognition_model": true,
+    
+    "mtcnn_model_path": "insightface/deploy/mtcnn-model/",
+
+    "arcface_model" : {
+        "path": "insightface/models/model-r34-ii/model,0",
+        "threshold": 0.55
+    },
+
+    "data" : {
+        "dataset_path": "data/dataset/",
+        "dataset_embedding_path": "data/faces_embedding/faces.pkl",
+        "unknown_db_path": "data/Unknown"
+    
+    }
+
+}
