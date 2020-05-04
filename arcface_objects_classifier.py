@@ -18,18 +18,17 @@ from mtcnn_face_detector import MtcnnFaceDetector
 
 
 class ArcFaceClassifier(ObjectClassifier):
-    def __init__(self, registered_ids, 
+    def __init__(self, config, registered_ids, 
                  objects_frame=None, registered_images_embedding=None,
-                 threshold=0.55, batch_size=20):
+                 batch_size=20):
 
         params =  {
-            'model': 'insightface/models/model-r34-ii/model,0',
+            'model': config["arcface_model"]["path"],
             'image_size': '112,112',
             'gpu': 0,
         }
 
         self.model = face_model.FaceModel(params)
-        self.dataset_folder = "dataset"
         self.image_size = [int(i) for i in params['image_size'].split(',')]
     
         if registered_images_embedding is not None:
@@ -45,7 +44,7 @@ class ArcFaceClassifier(ObjectClassifier):
             self.registered_images_embedding = np.concatenate(registered_images_embedding_list)
 
         self.registered_ids = registered_ids
-        self.threshold = threshold
+        self.threshold = config["arcface_model"]["confidence_threshold"]
         self.unknown = 'Unknown'
 
 
@@ -127,7 +126,7 @@ class ArcFaceClassifier(ObjectClassifier):
                 return pickle.load(f)
 
 
-def train_arcface_model(face_detector, dataset_folder="data/datasets", output_path="data/faces_embedding"):
+def train_arcface_model(face_detector, config, dataset_folder, embedding_folder):
     objs = []
     register_image_bbox_objs = []
     registered_ids = []
@@ -153,13 +152,13 @@ def train_arcface_model(face_detector, dataset_folder="data/datasets", output_pa
 
     objects_frame = np.transpose(objects_frame, (0, 3, 1, 2))
     with SimpleTimer("[INFO] Extracting embedding for our dataset"):
-        arcface_classifier = ArcFaceClassifier(registered_ids, objects_frame=objects_frame)
+        arcface_classifier = ArcFaceClassifier(config, registered_ids, objects_frame=objects_frame)
 
-    embedding_path = f"{output_path}/faces.pkl"
+    embedding_path = f"{embedding_folder}/faces.pkl"
     print(f"[INFO] Store face embedding to {embedding_path}")
     arcface_classifier.store_embedding_info(embedding_path)
     
-    ids_path = f"{output_path}/registered_ids.txt"
+    ids_path = f"{embedding_folder}/registered_ids.txt"
     print(f"[INFO] Store registered ids to {ids_path}")
     with open(ids_path, 'w') as filehandle:
         for registered_id in registered_ids:

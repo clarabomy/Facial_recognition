@@ -10,9 +10,9 @@ import keyboard
 import uuid
 
 
-def video_stream(face_detector, arcface_classifier, save_folder="data/Unknown"):
+def video_stream(face_detector, arcface_classifier, unknown_folder):
     cap = cv2.VideoCapture(0)
-    create_dir(save_folder)
+    create_dir(unknown_folder)
     fps = FPS().start()
     nb_frames = 0
 
@@ -33,7 +33,7 @@ def video_stream(face_detector, arcface_classifier, save_folder="data/Unknown"):
                     to_crop = np.array(pil_im)
                     cropped = to_crop[y1-25:y2+25, x1-25:x2+25] #0.5*... à tester !
                     try:
-                        cv2.imwrite(f"{save_folder}/{uuid.uuid4()}.jpg", cropped)
+                        cv2.imwrite(f"{unknown_folder}/{uuid.uuid4()}.jpg", cropped)
                     except:
                         pass
                 color = (0,0,255) #red color

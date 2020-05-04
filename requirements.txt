@@ -8,6 +8,7 @@ bistiming
 eyewitness==1.0.13
 dchunk==0.0.1
 line-bot-sdk
-Pillow==5.2.0
+Pillow
 imutils
 keyboard
+argparse

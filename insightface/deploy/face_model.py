@@ -18,13 +18,9 @@ def do_flip(data):
         data[idx, :, :] = np.fliplr(data[idx, :, :])
 
 
-def get_model(ctx, image_size, model_str, layer):
-    _vec = model_str.split(',')
-    assert len(_vec) == 2
-    prefix = _vec[0]
-    epoch = int(_vec[1])
-    print('loading', prefix, epoch)
-    sym, arg_params, aux_params = mx.model.load_checkpoint(prefix, epoch)
+def get_model(ctx, image_size, model_path, layer, epoch=0):
+    print(f"[LOG] Loading {model_path}")
+    sym, arg_params, aux_params = mx.model.load_checkpoint(model_path, epoch)
     all_layers = sym.get_internals()
     sym = all_layers[layer+'_output']
     model = mx.mod.Module(symbol=sym, context=ctx, label_names=None)
