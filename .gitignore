@@ -1,4 +1,4 @@
-insightface/models/
+insightface/models/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

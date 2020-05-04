@@ -13,6 +13,12 @@
 
 3. Installer les dépendances du projet via la commande : `pip install -r requirements.txt`
 
+### Téléchargement des modèles de reconnaissance
+Pour lancer correctement le programme, vous devez préalablement télécharger un des modèles de reconnaissance faciale pré-entrainé, disponibles [ici](https://github.com/deepinsight/insightface/wiki/Model-Zoo).
+
+Il suffit ensuite de dézipper le dossier et de préciser son url dans le fichier config.json du projet.
+
+
 ### Lancement du programme
 Le programme se lance via la commande : `python main_function.py`
 
