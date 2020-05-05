@@ -1,4 +1,4 @@
-Il est conseillé de télécharger et d'ajouter les modèles pré-entrainés suivants dans ce dossier :
+Il est conseillé de télécharger et d'ajouter le(s) modèle(s) pré-entrainé(s) suivant(s) dans ce dossier :
 * LResNet50E-IR
 * LResNet34E-IR
 * LResNet100E-IR
