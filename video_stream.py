@@ -34,7 +34,7 @@ def video_stream(face_detector, arcface_classifier, unknown_folder, logs_folder)
         face_detection_result = face_detector.detect_frame(frame)
         pil_im = Img.fromarray(frame)
 
-        if nb_frames % 5 == 0:
+        if nb_frames % 3 == 0:
             persons, detected_persons = arcface_classifier.recognize_person(pil_im, face_detection_result)
             frame = np.array(pil_im)
 
@@ -46,7 +46,10 @@ def video_stream(face_detector, arcface_classifier, unknown_folder, logs_folder)
             
             label, x1, y1, x2, y2, confidence = str(person[0]), int(person[1]), int(person[2]), int(person[3]), int(person[4]), float(person[5])
             
-            data_to_save = [datetime.datetime.now().strftime("%d-%m-%Y"), datetime.datetime.now().strftime("%H:%M:%S"), label, "{:.2f}".format(confidence)]
+            data_to_save = [datetime.datetime.now().strftime("%d-%m-%Y"), 
+                            datetime.datetime.now().strftime("%H:%M:%S"),
+                            label,
+                            "{:.2f}".format(confidence)]
 
             if label == 'Unknown': 
                 if get_distance(last_bbs[i], (x1,y1,x2,y2)) != -1 and valid_photo(x1, y1, x2, y2, width, height):
@@ -80,6 +83,7 @@ def video_stream(face_detector, arcface_classifier, unknown_folder, logs_folder)
             )
 
             cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), color, 2)
+            
             if get_distance(last_bbs[i], (x1,y1,x2,y2)) != -1:
                 last_bbs[i] = (x1, y1, x2, y2)
 
@@ -90,6 +94,7 @@ def video_stream(face_detector, arcface_classifier, unknown_folder, logs_folder)
             nb_frames = 0
 
         fps.update()
+
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     

@@ -1,6 +1,7 @@
-insightface/models/*
-data/Unknown/*
+models/arcface_model/*
+data/unknown/*
 data/logs/*
+data/demo/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

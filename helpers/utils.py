@@ -92,4 +92,4 @@ def append_list_as_row(file_name: str, list_of_elem: list):
         csv_writer = writer(write_obj)
         # Add contents of list as last row in the csv file
         csv_writer.writerow(list_of_elem)
-        print("ok")
+
