@@ -1,5 +1,5 @@
 import os, json
-
+from math import sqrt
 
 def create_dir(dir: str):
     """
@@ -43,3 +43,41 @@ def get_file_content(path: str):
             registered_ids.append(registered_id)
     
     return registered_ids
+
+
+def bb_intersection_over_union(boxA, boxB):
+    # determine the (x, y)-coordinates of the intersection rectangle
+    xA = max(boxA[0], boxB[0])
+    yA = max(boxA[1], boxB[1])
+    xB = min(boxA[2], boxB[2])
+    yB = min(boxA[3], boxB[3])
+
+    # compute the area of intersection rectangle
+    interArea = abs(max((xB - xA, 0)) * max((yB - yA), 0))
+    
+    if interArea == 0:
+        return 0
+    
+    # compute the area of both the prediction and ground-truth
+    # rectangles
+    boxAArea = abs((boxA[2] - boxA[0]) * (boxA[3] - boxA[1]))
+    boxBArea = abs((boxB[2] - boxB[0]) * (boxB[3] - boxB[1]))
+
+    # compute the intersection over union by taking the intersection
+    # area and dividing it by the sum of prediction + ground-truth
+    # areas - the interesection area
+    iou = interArea / float(boxAArea + boxBArea - interArea)
+
+    # return the intersection over union value
+    return iou
+
+
+def get_distance(box_a, box_b):
+
+    if bb_intersection_over_union(box_a, box_b) == 0:
+        x1_a, y1_a, x2_a, y2_a = box_a
+        x1_b, y1_b, x2_b, y2_b = box_b
+        
+        return sqrt((x1_b-x2_a)**2 +(y1_b-y2_a)**2)
+    else:
+        return(-1)
