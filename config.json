@@ -1,7 +1,7 @@
 {   
     "train_recognition_model": false,
     
-    "mtcnn_model_path": "insightface/deploy/mtcnn-model/",
+    "mtcnn_model_path": "insightface/deploy/mtcnn-model",
 
     "arcface_model" : {
         "path": "insightface/models/model-r50-ii/model",
@@ -9,9 +9,10 @@
     },
 
     "data" : {
-        "dataset_path": "data/dataset/",
-        "embedding_path": "data/faces_embedding/",
-        "unknown_path": "data/Unknown"
+        "dataset_path": "data/dataset",
+        "embedding_path": "data/faces_embedding",
+        "unknown_path": "data/Unknown",
+        "logs_path": "data/logs"
     
     }
 

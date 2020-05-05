@@ -1,5 +1,7 @@
 import os, json
 from math import sqrt
+from csv import writer
+
 
 def create_dir(dir: str):
     """
@@ -81,3 +83,13 @@ def get_distance(box_a, box_b):
         return sqrt((x1_b-x2_a)**2 +(y1_b-y2_a)**2)
     else:
         return(-1)
+
+ 
+def append_list_as_row(file_name: str, list_of_elem: list):
+    # Open file in append mode
+    with open(file_name, 'a+', newline='') as write_obj:
+        # Create a writer object from csv module
+        csv_writer = writer(write_obj)
+        # Add contents of list as last row in the csv file
+        csv_writer.writerow(list_of_elem)
+        print("ok")

@@ -1,5 +1,6 @@
 insightface/models/*
 data/Unknown/*
+data/logs/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

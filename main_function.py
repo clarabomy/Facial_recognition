@@ -26,7 +26,9 @@ def main(config):
         embedding, registered_ids = ArcFaceClassifier.restore_embedding_info(faces_embedding_file)
         arcface_classifier = ArcFaceClassifier(config, registered_ids, registered_images_embedding=embedding)
     
-    video_stream(face_detector, arcface_classifier, unknown_folder=config["data"]["unknown_path"])
+    video_stream(face_detector, arcface_classifier, 
+            unknown_folder=config["data"]["unknown_path"],
+            logs_folder=config["data"]["logs_path"])
 
 
 if __name__ == "__main__":

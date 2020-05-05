@@ -1,26 +1,33 @@
-from helpers.utils import create_dir, get_distance
+from helpers.utils import create_dir, get_distance, append_list_as_row
 from mtcnn_face_detector import MtcnnFaceDetector
 from arcface_objects_classifier import ArcFaceClassifier
 from eyewitness.image_utils import ImageHandler, Image, resize_and_stack_image_objs
 from imutils.video import FPS
 from PIL import Image as Img
 import numpy as np
-import cv2, keyboard, uuid
+import cv2, keyboard, uuid, os, datetime
 
 MARGIN = 25
 
 def valid_photo(x1, y1, x2, y2, w, h):
     return (x1 - MARGIN > 0 and y1 - MARGIN > 0 and x2 + MARGIN < w and y2 + MARGIN < h)
 
-def video_stream(face_detector, arcface_classifier, unknown_folder):
+def video_stream(face_detector, arcface_classifier, unknown_folder, logs_folder):
     cap = cv2.VideoCapture(0)
     width  = cap.get(cv2.CAP_PROP_FRAME_WIDTH)  # float
     height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT) # float
 
+    # Create data folders 
     create_dir(unknown_folder)
+    create_dir(logs_folder)
+
+    # Create logs file 
+    log_file = logs_folder + "/" + datetime.datetime.now().strftime("%d-%m-%Y") + ".csv"
+
     fps = FPS().start()
     nb_frames = 0
     last_bbs = []
+
 
     while(True):
         ret, frame = cap.read()
@@ -38,18 +45,29 @@ def video_stream(face_detector, arcface_classifier, unknown_folder):
                 last_bbs = [(0,0,0,0) for x in range(len(persons))]
             
             label, x1, y1, x2, y2, confidence = str(person[0]), int(person[1]), int(person[2]), int(person[3]), int(person[4]), float(person[5])
+            
+            data_to_save = [datetime.datetime.now().strftime("%d-%m-%Y"), datetime.datetime.now().strftime("%H:%M:%S"), label, "{:.2f}".format(confidence)]
 
-            if label == 'Unknown':
+            if label == 'Unknown': 
                 if get_distance(last_bbs[i], (x1,y1,x2,y2)) != -1 and valid_photo(x1, y1, x2, y2, width, height):
-                    to_crop = np.array(pil_im)
-                    cropped = to_crop[y1-MARGIN:y2+MARGIN, x1-MARGIN:x2+MARGIN] #0.5*... à tester !
+                    
                     try:
-                        cv2.imwrite(f"{unknown_folder}/{uuid.uuid4()}.jpg", cropped)
+                        id_unknown = uuid.uuid4()
+                        to_crop = np.array(pil_im)
+                        cropped = to_crop[y1-MARGIN:y2+MARGIN, x1-MARGIN:x2+MARGIN] #0.5*... à tester !
+                        cv2.imwrite(f"{unknown_folder}/{id_unknown}.jpg", cropped)
+                        data_to_save.append(id_unknown)
+                        append_list_as_row(log_file, data_to_save)
+
                     except:
                         pass
+
                 color = (0,0,255) #red color
             
             else:
+                if get_distance(last_bbs[i], (x1,y1,x2,y2)) != -1 and valid_photo(x1, y1, x2, y2, width, height):
+                    append_list_as_row(log_file, data_to_save)
+                
                 color = (0,255,0) #green color
 
             cv2.putText(frame, 
