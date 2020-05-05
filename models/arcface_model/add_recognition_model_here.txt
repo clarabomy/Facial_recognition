@@ -1,0 +1,6 @@
+Il est conseillé de télécharger et d'ajouter les modèles pré-entrainés suivants dans ce dossier :
+* LResNet50E-IR
+* LResNet34E-IR
+* LResNet100E-IR
+
+Lien de téléchargement : https://github.com/deepinsight/insightface/wiki/Model-Zoo

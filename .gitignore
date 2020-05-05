@@ -1,4 +1,4 @@
-models/arcface_model/*
+
 data/unknown/*
 data/logs/*
 data/demo/*
