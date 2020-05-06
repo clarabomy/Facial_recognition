@@ -34,7 +34,7 @@ def video_stream(face_detector, arcface_classifier, unknown_folder, logs_folder)
         face_detection_result = face_detector.detect_frame(frame)
         pil_im = Img.fromarray(frame)
 
-        if nb_frames % 3 == 0:
+        if nb_frames % 5 == 0:
             persons, detected_persons = arcface_classifier.recognize_person(pil_im, face_detection_result)
             frame = np.array(pil_im)
 
@@ -50,9 +50,9 @@ def video_stream(face_detector, arcface_classifier, unknown_folder, logs_folder)
                             datetime.datetime.now().strftime("%H:%M:%S"),
                             label,
                             "{:.2f}".format(confidence)]
-
+            
             if label == 'Unknown': 
-                if get_distance(last_bbs[i], (x1,y1,x2,y2)) != -1 and valid_photo(x1, y1, x2, y2, width, height):
+                if (last_bbs[i]==(0,0,0,0) or get_distance(last_bbs[i], (x1,y1,x2,y2)) != -1) and valid_photo(x1, y1, x2, y2, width, height):
                     
                     try:
                         id_unknown = uuid.uuid4()
@@ -68,7 +68,7 @@ def video_stream(face_detector, arcface_classifier, unknown_folder, logs_folder)
                 color = (0,0,255) #red color
             
             else:
-                if get_distance(last_bbs[i], (x1,y1,x2,y2)) != -1 and valid_photo(x1, y1, x2, y2, width, height):
+                if (last_bbs[i]==(0,0,0,0) or get_distance(last_bbs[i], (x1,y1,x2,y2)) != -1) and valid_photo(x1, y1, x2, y2, width, height):
                     append_list_as_row(log_file, data_to_save)
                 
                 color = (0,255,0) #green color
@@ -91,7 +91,7 @@ def video_stream(face_detector, arcface_classifier, unknown_folder, logs_folder)
 
         nb_frames += 1
         if nb_frames == 101:
-            nb_frames = 0
+            nb_frames = 1
 
         fps.update()
 
