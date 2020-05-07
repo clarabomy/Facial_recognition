@@ -28,7 +28,8 @@ def main(config):
     
     video_stream(face_detector, arcface_classifier, 
             unknown_folder=config["data"]["unknown_path"],
-            logs_folder=config["data"]["logs_path"])
+            logs_folder=config["data"]["logs_path"],
+            camera_ip=config['camera_ip'])
 
 
 if __name__ == "__main__":

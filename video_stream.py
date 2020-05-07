@@ -12,8 +12,8 @@ MARGIN = 25
 def valid_photo(x1, y1, x2, y2, w, h):
     return (x1 - MARGIN > 0 and y1 - MARGIN > 0 and x2 + MARGIN < w and y2 + MARGIN < h)
 
-def video_stream(face_detector, arcface_classifier, unknown_folder, logs_folder):
-    cap = cv2.VideoCapture(0)
+def video_stream(face_detector, arcface_classifier, unknown_folder, logs_folder, camera_ip):
+    cap = cv2.VideoCapture(camera_ip)
     width  = cap.get(cv2.CAP_PROP_FRAME_WIDTH)  # float
     height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT) # float
 
@@ -69,6 +69,7 @@ def video_stream(face_detector, arcface_classifier, unknown_folder, logs_folder)
             
             else:
                 if (last_bbs[i]==(0,0,0,0) or get_distance(last_bbs[i], (x1,y1,x2,y2)) != -1) and valid_photo(x1, y1, x2, y2, width, height):
+                    data_to_save.append("no_photo_available")
                     append_list_as_row(log_file, data_to_save)
                 
                 color = (0,255,0) #green color

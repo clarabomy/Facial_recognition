@@ -60,8 +60,7 @@ def bb_intersection_over_union(boxA, boxB):
     if interArea == 0:
         return 0
     
-    # compute the area of both the prediction and ground-truth
-    # rectangles
+    # compute the area of both rectangles
     boxAArea = abs((boxA[2] - boxA[0]) * (boxA[3] - boxA[1]))
     boxBArea = abs((boxB[2] - boxB[0]) * (boxB[3] - boxB[1]))
 
@@ -79,7 +78,6 @@ def get_distance(box_a, box_b):
     if bb_intersection_over_union(box_a, box_b) == 0:
         x1_a, y1_a, x2_a, y2_a = box_a
         x1_b, y1_b, x2_b, y2_b = box_b
-        
         return sqrt((x1_b-x2_a)**2 +(y1_b-y2_a)**2)
     else:
         return(-1)

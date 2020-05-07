@@ -13,7 +13,8 @@
         "embedding_path": "data/faces_embedding",
         "unknown_path": "data/unknown",
         "logs_path": "data/logs"
-    
-    }
+    },
+
+    "camera_ip" : 0
 
 }
