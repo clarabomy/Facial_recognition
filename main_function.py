@@ -4,8 +4,8 @@ import os, sys
 from PIL import Image as Img
 from eyewitness.image_id import ImageId
 from eyewitness.image_utils import ImageHandler, Image, resize_and_stack_image_objs
-from mtcnn_face_detector import MtcnnFaceDetector
-from arcface_objects_classifier import ArcFaceClassifier, train_arcface_model
+from deploy.mtcnn_face_detector import MtcnnFaceDetector
+from deploy.arcface_classifier import ArcFaceClassifier, train_arcface_model
 from video_stream import video_stream
 from eyewitness.config import BoundedBoxObject
 from helpers.args import get_args

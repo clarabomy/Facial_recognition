@@ -1,6 +1,6 @@
 from helpers.utils import create_dir, get_distance, append_list_as_row
-from mtcnn_face_detector import MtcnnFaceDetector
-from arcface_objects_classifier import ArcFaceClassifier
+from deploy.mtcnn_face_detector import MtcnnFaceDetector
+from deploy.arcface_classifier import ArcFaceClassifier
 from eyewitness.image_utils import ImageHandler, Image, resize_and_stack_image_objs
 from imutils.video import FPS
 from PIL import Image as Img
@@ -34,7 +34,7 @@ def video_stream(face_detector, arcface_classifier, unknown_folder, logs_folder,
         face_detection_result = face_detector.detect_frame(frame)
         pil_im = Img.fromarray(frame)
 
-        if nb_frames % 5 == 0:
+        if nb_frames % 3 == 0:
             persons, detected_persons = arcface_classifier.recognize_person(pil_im, face_detection_result)
             frame = np.array(pil_im)
 
