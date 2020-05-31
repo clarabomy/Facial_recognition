@@ -1,1 +1,11 @@
-...
+Le dataset doit être structuré de la façon suivante : un dossier au nom de chaque individu enregstré, comportant différentes photos de lui.
+
+Individu_1
+     - photo_1.jpg
+     - photo_2.jpg
+
+Individu_2
+     - photo_1.jpg
+     - photo_2.jpg
+     - photo_3.jpg
+     - photo_4.jpg
