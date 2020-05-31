@@ -6,6 +6,7 @@ data/dataset/*
 
 # But not these files...
 models/arcface_model/add_recognition_model_here.txt
+data/dataset/add_dataset_here.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
