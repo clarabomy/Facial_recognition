@@ -1,5 +1,5 @@
 {   
-    "train_recognition_model": false,
+    "train_recognition_model": true,
     
     "mtcnn_model_path": "models/mtcnn-model",
 
