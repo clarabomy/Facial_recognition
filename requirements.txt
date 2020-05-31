@@ -12,3 +12,4 @@ Pillow
 imutils
 keyboard
 argparse
+mxnet-cu90

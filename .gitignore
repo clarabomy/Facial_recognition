@@ -2,6 +2,7 @@ models/arcface_model
 data/unknown/*
 data/logs/*
 data/demo/*
+data/dataset/*
 
 # But not these files...
 models/arcface_model/add_recognition_model_here.txt
