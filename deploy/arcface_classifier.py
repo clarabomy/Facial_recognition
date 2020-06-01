@@ -128,20 +128,21 @@ def train_arcface_model(face_detector, config, dataset_folder, embedding_folder)
     registered_ids = []
 
     for folder in os.listdir(dataset_folder):
-        for face in os.listdir(f"{dataset_folder}/{folder}"):
-            raw_image_path = f"{dataset_folder}/{folder}/{face}" 
-            train_image_id = ImageId(channel='train_img', timestamp=arrow.now().timestamp, file_format=os.path.splitext(face)[1])
-            train_image_obj = Image(train_image_id, raw_image_path=raw_image_path)
+        if not folder.endswith('.txt'):    
+            for face in os.listdir(f"{dataset_folder}/{folder}"):
+                raw_image_path = f"{dataset_folder}/{folder}/{face}" 
+                train_image_id = ImageId(channel='train_img', timestamp=arrow.now().timestamp, file_format=os.path.splitext(face)[1])
+                train_image_obj = Image(train_image_id, raw_image_path=raw_image_path)
 
-            try:
-                face_detection_result = face_detector.detect(train_image_obj, label=folder)
-                if len(face_detection_result.detected_objects) == 1:
-                    register_image_bbox_objs.append(face_detection_result.detected_objects[0])
-                    registered_ids.append(face_detection_result.detected_objects[0].label)
-                    objs += train_image_obj.fetch_bbox_pil_objs(register_image_bbox_objs)
-            except:
-                print(f"[ERROR] An error occured with the face detector model. Can't open the photo {dataset_folder}/{folder}/{face}")
-            register_image_bbox_objs = []
+                try:
+                    face_detection_result = face_detector.detect(train_image_obj, label=folder)
+                    if len(face_detection_result.detected_objects) == 1:
+                        register_image_bbox_objs.append(face_detection_result.detected_objects[0])
+                        registered_ids.append(face_detection_result.detected_objects[0].label)
+                        objs += train_image_obj.fetch_bbox_pil_objs(register_image_bbox_objs)
+                except:
+                    print(f"[ERROR] An error occured with the face detector model. Can't open the photo {dataset_folder}/{folder}/{face}")
+                register_image_bbox_objs = []
 
     objects_frame = resize_and_stack_image_objs((112, 112), objs)
     print("Object_frame shape:", objects_frame.shape)

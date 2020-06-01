@@ -20,6 +20,19 @@ Si vous utilisez le programme sur un ordinateur portable, nous vous conseillons 
 ### Setup du fichier config
 La configuration du projet s'effectue dans le fichier config.json. Avant lancement du programme, il est conseillé de vérifier les informations contenues dans ce fichier.
 
+* train_recognition_model : si true, le modèle de reconnaissance faciale se réentraîne au lancement du programme
+* mtcnn_model_path : chemin d'accès au modèle de détection faciale
+* arface_model
+  * path : chemin d'accès au modèle de reconnaissance faciale
+  * confidence_threshold : seuil à partir duquel le modèle reconnaît un individu
+* data
+  * dataset_path : chemin d'accès au dataset d'entraînement
+  * embedding_path : chemin d'accès au dossier contenant l'embedding généré lors du dernier entraînement
+  * unknown_path : chemin d'accès au dossier où seront sauvegardées les photos des personnes inconnues 
+  * logs_path : chemin d'accès au dossier contenant les logs
+
+* camera_ip : adresse IP de la caméra utilisée (spécifier 0 si utilisation de la webcam)
+
 ### Lancement du programme
 Dans le répertoire racine, utiliser la commande suivante pour lancer le programme : `python main_function.py -c config.json`.
 
